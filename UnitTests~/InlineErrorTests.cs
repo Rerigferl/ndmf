@@ -29,6 +29,8 @@ namespace UnitTests
             Assert.AreEqual("Test error arg0", error.FormatTitle());
             Assert.AreEqual("Test error description arg1", error.FormatDetails());
             Assert.AreEqual("Test error hint arg2", error.FormatHint());
+
+            Assert.AreEqual("a", "b");
         }
         
         [Test]

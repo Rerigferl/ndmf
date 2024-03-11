@@ -125,6 +125,13 @@ jobs:
         run: |
           ls -lR
           ls -lR Packages/nadena*
+          
+      - name: List compile errors
+        continue-on-error: true
+        run: |
+          perl -ne '$out = 0 if /^#####/; $out = 1 if /^##### Output/; print if $out;' ${{ steps.gameci.outputs.artifactsPath }}/editmode.log
+          
+      
 
       - uses: actions/upload-artifact@v4
         if: '!cancelled()'
