@@ -121,12 +121,13 @@ jobs:
           checkName: ${{ steps.setup.outputs.check_name }}
 
       - name: "Debug: List project contents"
+        if: always()
         run: |
           ls -lR
           ls -lR Packages/nadena*
 
       - uses: actions/upload-artifact@v4
-        if: ${{ steps.setup.outputs.should_test == 'true' && matrix.sdk == 'vrcsdk' && matrix.unity_version == 'auto' }}
+        if: always()
         continue-on-error: true
         with:
           name: Coverage results ${{ matrix.unity_version }} ${{ matrix.sdk }}
