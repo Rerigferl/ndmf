@@ -45,6 +45,7 @@ jobs:
     name: Unit tests
     continue-on-error: ${{ matrix.experimental }}
     strategy:
+      fail-fast: false
       matrix:
         #unity_version: [ auto, 2022.3.5f1 ]
         unity_version: [ 2022.3.6f1 ]
@@ -53,6 +54,7 @@ jobs:
         include:
           - unity_version: 2019.4.31f1
             sdk: vrcsdk
+            experimental: false
           - unity_version: 2022.3.6f1
             sdk: standalone
             experimental: true
