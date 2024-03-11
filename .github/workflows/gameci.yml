@@ -120,6 +120,11 @@ jobs:
           customParameters: -nographics -assemblyNames nadena.dev.ndmf.UnitTests
           checkName: ${{ steps.setup.outputs.check_name }}
 
+      - name: "Debug: List project contents"
+        run: |
+          ls -lR
+          ls -lR Packages/nadena*
+
       - uses: actions/upload-artifact@v4
         if: ${{ steps.setup.outputs.should_test == 'true' && matrix.sdk == 'vrcsdk' && matrix.unity_version == 'auto' }}
         continue-on-error: true
