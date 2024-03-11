@@ -66,6 +66,9 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
+          
+      - run: |
+          sudo apt-get -y install libxml2-utils # xmllint
 
       - id: prepare-project
         name: Prepare project
@@ -132,6 +135,13 @@ jobs:
         run: |
           perl -ne '$out = 0 if /^#####/; $out = 1 if /^##### Output/; print if $out;' ${{ steps.gameci.outputs.artifactsPath }}/editmode.log
           
+      - name: List test failures
+        continue-on-error: true
+        if: failure()
+        run: |
+          if [ -e ${{ steps.gameci.outputs.artifactsPath }}/editmode-results.xml ]; then
+            xmllint  --pretty 2 --nocompact  --xpath '//test-case[@result!="Passed"]'  ${{ steps.gameci.outputs.artifactsPath }}/editmode-results.xml
+          fi
 
       - uses: actions/upload-artifact@v4
         if: '!cancelled()'
