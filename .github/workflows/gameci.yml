@@ -121,13 +121,13 @@ jobs:
           checkName: ${{ steps.setup.outputs.check_name }}
 
       - name: "Debug: List project contents"
-        if: always()
+        if: '!cancelled()'
         run: |
           ls -lR
           ls -lR Packages/nadena*
 
       - uses: actions/upload-artifact@v4
-        if: always()
+        if: '!cancelled()'
         continue-on-error: true
         with:
           name: Coverage results ${{ matrix.unity_version }} ${{ matrix.sdk }}
