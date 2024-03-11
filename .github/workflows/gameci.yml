@@ -132,3 +132,10 @@ jobs:
         with:
           name: Coverage results ${{ matrix.unity_version }} ${{ matrix.sdk }}
           path: ${{ steps.gameci.outputs.coveragePath }}
+
+      - uses: actions/upload-artifact@v4
+        if: '!cancelled()'
+        continue-on-error: true
+        with:
+          name: Test results for ${{ matrix.unity_version }} ${{ matrix.sdk }}
+          path: ${{ steps.gameci.outputs.artifactsPath }}
